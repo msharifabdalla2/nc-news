@@ -12,5 +12,15 @@ function getAllArticles() {
         });
 };
 
-export { getAllArticles };
+function getArticleById(articleByIdQuery) {
+    return api.get(`/articles/${articleByIdQuery}`)
+        .then(({ data }) => {
+        return data.article
+        })
+        .catch((err) => {
+            console.error("Error fetching article: ", err);
+        });
+}
+
+export { getAllArticles, getArticleById };
 
