@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import user_img from "../assets/user_img.png"
+import user_img from "../assets/user_img.png";
+import logo from "../assets/logo.png"
 import { Link } from "react-router-dom";
 
 
@@ -15,7 +16,7 @@ function Header() {
     
     return (
         <div className="header">
-            <img src="null" alt="logo" onClick={handleLogoClick}/>
+            <img src={logo} alt="logo" onClick={handleLogoClick}/>
             <h1><Link to="/">NC News</Link></h1>
             <img src={user_img} alt="cartoon user login" />
         </div>

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../../api";
+import CommentsList from "./CommentsList";
 
 function ArticlePage() {
+    
+    const { article_id } = useParams();
 
     const [article, setArticle] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const { article_id } = useParams();
 
     useEffect(() => {
         getArticleById(article_id)
@@ -26,6 +28,7 @@ function ArticlePage() {
     if (error) return <p>Error: {error}</p>;
 
     return (
+        <section>
         <article className="article-page">
             <h1>{article.title}</h1>
             <p>By {article.author} | {new Date(article.created_at).toDateString()}</p>
@@ -36,6 +39,8 @@ function ArticlePage() {
                 <span>💬 {article.comment_count} Comments</span>
             </div>
         </article>
+            <CommentsList article_id={article_id} />
+        </section>
     );
 }
 
