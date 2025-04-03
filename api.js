@@ -32,5 +32,16 @@ function getCommentsByArticleId(articleByIdQuery) {
         });
 }
 
-export { getAllArticles, getArticleById, getCommentsByArticleId };
+function updateArticleVotes(articleByIdQuery, inc_votes) {
+    return api.patch(`/articles/${articleByIdQuery}`, { inc_votes })
+        .then(({ data }) => {
+            return data.article;
+        })
+        .catch((err) => {
+            console.error("Error updating votes:", err);
+            throw err;
+        });
+}
+
+export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes };
 
