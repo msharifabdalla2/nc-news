@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById } from "../../api";
+import { getArticleById, updateArticleVotes } from "../../api";
 import CommentsList from "./CommentsList";
 
 function ArticlePage() {
@@ -10,7 +10,7 @@ function ArticlePage() {
     const [article, setArticle] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [isVoting, setIsVoting] = useState(false);
 
     useEffect(() => {
         getArticleById(article_id)
@@ -23,6 +23,26 @@ function ArticlePage() {
                 setIsLoading(false);
             });
     }, [article_id]);
+
+    const handleVote = (incVotes) => {
+        // Optimistic UI update
+        const updatedArticle = {
+            ...article,
+            votes: article.votes + incVotes
+        };
+        setArticle(updatedArticle);
+        setIsVoting(true)
+
+        updateArticleVotes(article_id, incVotes)
+            .then(() => {
+                setIsVoting(false);
+            })
+            .catch((err) => {
+                setError("Failed to update votes");
+                setIsVoting(false);
+                setArticle(article);
+            });
+    }
 
     if (isLoading) return <p>Loading article...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -37,7 +57,11 @@ function ArticlePage() {
             <div className="article-stats2">
                 <span>👍 {article.votes} Votes</span>
                 <span>💬 {article.comment_count} Comments</span>
-            </div>
+                </div>
+                <div className="vote-buttons">
+                    <button onClick={() => handleVote(1)} disabled={isVoting}>Upvote</button>
+                    <button onClick={() => handleVote(-1)} disabled={isVoting}>Downvote</button>
+                </div>
         </article>
             <CommentsList article_id={article_id} />
         </section>
