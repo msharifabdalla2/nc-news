@@ -67,5 +67,4 @@ function ArticlePage() {
         </section>
     );
 }
-
 export default ArticlePage;

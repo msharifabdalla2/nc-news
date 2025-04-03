@@ -43,5 +43,17 @@ function updateArticleVotes(articleByIdQuery, inc_votes) {
         });
 }
 
-export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes };
+function postNewCommentByArticleId(articleByIdQuery, articleData) {
+    return api.post(`/articles/${articleByIdQuery}/comments`, articleData)
+        .then(({ data }) => {
+            console.log(data.comment)
+            return data.comment;
+        })
+        .catch((err) => {
+            console.error("Error posting comment on article", err);
+            throw err;
+        });
+}
+
+export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes, postNewCommentByArticleId };
 
