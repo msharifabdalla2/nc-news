@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({ baseURL: 'https://be-nc-news-i5ax.onrender.com/api' });
 
-function getAllArticles() {
-    return api.get('/articles')
+function getAllArticles(topicNameQuery) {
+    return api.get('/articles', { params: { topic: topicNameQuery } })
         .then(({ data }) => {
             return data.articles;
         })
@@ -66,16 +66,15 @@ function deleteCommentByCommentId(comment_id) {
         });
 }
 
-// function deleteUserItem(item_id) {
-//     return api.delete(`/users/Ant/items/${item_id}`)
-//         .then(({ data }) => {
-//             console.log("Item deleted successfully", data);
-//             return data;
-//         })
-//         .catch((error) => {
-//             console.error("Error deleting item:", error)
-//         });
-// }
+function getAllTopics() {
+    return api.get('/topics')
+        .then(({ data }) => {
+            return data.topics;
+        })
+        .catch((err) => {
+            console.error("Error fetching topics: ", err);
+        });
+}
 
-export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes, postNewCommentByArticleId, deleteCommentByCommentId };
+export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes, postNewCommentByArticleId, deleteCommentByCommentId, getAllTopics };
 

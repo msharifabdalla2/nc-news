@@ -34,7 +34,7 @@ function CommentCard({ comment, setComments }) {
 
             {/* Only show the delete button if the comment belongs to the current user */}
             {author === 'grumpy19' && (
-                <button onClick={handleDelete} disabled={isDeleting}>
+                <button onClick={handleDelete} disabled={isDeleting} className="delete-btn">
                     {isDeleting ? "Deleting..." : "Delete"}
                 </button>
             )}

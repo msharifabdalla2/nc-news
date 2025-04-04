@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Articles from './components/Articles'
 import ArticlePage from './components/ArticlePage'
 import Footer from './components/Footer'
+import Topics from './components/Topics'
 import { Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Header />
         <Navbar />
         <Routes>
+          <Route path='/topics' element={<Topics />} />
           <Route path='/articles' element={<Articles />} />
           <Route path='/articles/:article_id' element={<ArticlePage />} />
         </Routes>
