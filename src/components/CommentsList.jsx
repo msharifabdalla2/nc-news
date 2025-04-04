@@ -29,7 +29,7 @@ function CommentsList({ article_id }) {
                 <p>No comments yet.</p>
             ) : (
                 comments.map((comment) => (
-                    <CommentCard key={comment.comment_id} comment={comment} />
+                    <CommentCard key={comment.comment_id} comment={comment} setComments={setComments} />
                 ))
             )}
             <CommentForm article_id={article_id} setComments={setComments} />

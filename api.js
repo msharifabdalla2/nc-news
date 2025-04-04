@@ -55,5 +55,27 @@ function postNewCommentByArticleId(articleByIdQuery, articleData) {
         });
 }
 
-export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes, postNewCommentByArticleId };
+function deleteCommentByCommentId(comment_id) {
+    return api.delete(`/comments/${comment_id}`)
+        .then(({ data }) => {
+            console.log("Comment deleted successfully", data);
+            return data;
+        })
+        .catch((err) => {
+            console.error("Error deleting comment:", err)
+        });
+}
+
+// function deleteUserItem(item_id) {
+//     return api.delete(`/users/Ant/items/${item_id}`)
+//         .then(({ data }) => {
+//             console.log("Item deleted successfully", data);
+//             return data;
+//         })
+//         .catch((error) => {
+//             console.error("Error deleting item:", error)
+//         });
+// }
+
+export { getAllArticles, getArticleById, getCommentsByArticleId, updateArticleVotes, postNewCommentByArticleId, deleteCommentByCommentId };
 
