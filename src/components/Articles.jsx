@@ -10,6 +10,8 @@ function Articles() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const topicNameQuery = searchParams.get("topic");
+    const sortByQuery = searchParams.get("sort_by") 
+    const orderByQuery = searchParams.get("order")
 
     // useEffect(() => {
     //     if (topicNameQuery) {
@@ -39,12 +41,10 @@ function Articles() {
     useEffect(() => {
         setIsLoading(true);
         setError(null); 
-    
-        const fetchArticles = topicNameQuery ? getAllArticles(topicNameQuery) : getAllArticles();
-    
-        fetchArticles
-            .then((articles) => {
-                setArticles(articles);
+
+        getAllArticles(topicNameQuery, sortByQuery, orderByQuery)
+            .then((fetchedArticles) => {
+                setArticles(fetchedArticles);
                 setIsLoading(false);
             })
             .catch((err) => {
@@ -52,7 +52,7 @@ function Articles() {
                 setIsLoading(false);
             });
     
-    }, [topicNameQuery]);
+    }, [topicNameQuery, orderByQuery, sortByQuery]);
     
 
 

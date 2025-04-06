@@ -2,13 +2,21 @@ import axios from 'axios';
 
 const api = axios.create({ baseURL: 'https://be-nc-news-i5ax.onrender.com/api' });
 
-function getAllArticles(topicNameQuery) {
-    return api.get('/articles', { params: { topic: topicNameQuery } })
+function getAllArticles(topicNameQuery, sortByQuery, orderByQuery) {
+    return api.get('/articles', {
+        params:
+        {
+            topic: topicNameQuery,
+            sort_by: sortByQuery,
+            order: orderByQuery,
+        }
+    })
         .then(({ data }) => {
             return data.articles;
         })
         .catch((err) => {
             console.error("Error fetching articles: ", err);
+            throw err;
         });
 };
 
